@@ -1,0 +1,106 @@
+<?xml version="2.0"?>
+
+<gazebo reference="imu_link">
+    <sensor name="imu_controller" type="imu">
+        <imu>
+            <topic>/sim/imu/imu_raw</topic>
+            <noise>
+                <type>gaussian</type>
+                <rate>
+                    <mean>0.0</mean>
+                    <stddev>2e-4</stddev>
+                    <bias_mean>0.0000075</bias_mean>
+                    <bias_stddev>0.0000008</bias_stddev>
+                </rate>
+                <accel>
+                    <mean>0.0</mean>
+                    <stddev>1.7e-2</stddev>
+                    <bias_mean>0.1</bias_mean>
+                    <bias_stddev>0.001</bias_stddev>
+                </accel>
+            </noise>
+        </imu>
+        <always_on>1</always_on>
+        <update_rate>50</update_rate>
+    </sensor>
+</gazebo>
+<gazebo reference="front_cam_link">
+    <sensor type=" camera" name="front_cam_sensor">
+        <camera name="front_camera">
+            <horizontal_fov>1.39626</horizontal_fov>
+            <image>
+                <width>640</width>
+                <height>480</height>
+                <format>R8G8B8</format>
+            </image>
+            <clip>
+                <near>0.01</near>
+                <far>100</far>
+            </clip>
+            <noise>
+                <type>gaussian</type>
+                <mean>-0.5</mean>
+                <stddev>0.05</stddev>
+            </noise>
+        </camera>
+        <update_rate>20.0</update_rate>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+            <cameraName>front_camera</cameraName>
+            <alwaysOn>true</alwaysOn>
+            <updateRate>20.0</updateRate>
+            <imageTopicName>/front_camera/image_raw</imageTopicName>
+            <frameName>front_cam_link</frameName>
+            <hackBaseline>0.07</hackBaseline>
+            <distortionK1>0</distortionK1>
+            <distortionK2>0</distortionK2>
+            <distortionK3>0</distortionK3>
+            <distortionT1>0</distortionT1>
+            <distortionT2>0</distortionT2>
+        </plugin>
+    </sensor>
+    <material value="Gazebo/WhiteGlow"/>
+</gazebo>
+<gazebo>
+    <plugin name="DepthPlugin" filename="libmatsya_gazebo_depth.so">
+    </plugin>
+</gazebo>
+<gazebo>
+    <plugin name="ThrusterPlugin" filename="libmatsya_gazebo_thruster.so">
+    </plugin>
+</gazebo>
+<gazebo reference="bottom_cam_link">
+    <sensor type=" camera" name="bottom_cam_sensor">
+        <camera name="bottom_camera">
+            <horizontal_fov>1.39626</horizontal_fov>
+            <image>
+                <width>640</width>
+                <height>480</height>
+                <format>R8G8B8</format>
+            </image>
+            <clip>
+                <near>0.01</near>
+                <far>100</far>
+            </clip>
+            <noise>
+                <type>gaussian</type>
+                <mean>-0.5</mean>
+                <stddev>0.05</stddev>
+            </noise>
+        </camera>
+        <update_rate>20.0</update_rate>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+            <cameraName>bottom_camera</cameraName>
+            <alwaysOn>true</alwaysOn>
+            <updateRate>20.0</updateRate>
+            <imageTopicName>/bottom_camera/image_raw</imageTopicName>
+            <frameName>bottom_cam_link</frameName>
+            <hackBaseline>0.07</hackBaseline>
+            <distortionK1>0.0</distortionK1>
+            <distortionK2>0.0</distortionK2>
+            <distortionK3>0.0</distortionK3>
+            <distortionT1>0.0</distortionT1>
+            <distortionT2>0.0</distortionT2>
+        </plugin>
+    </sensor>
+    <material value="Gazebo/WhiteGlow"/>
+</gazebo>
